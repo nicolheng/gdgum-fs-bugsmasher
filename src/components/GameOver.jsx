@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const STORAGE_KEY = 'bugsmasher_leaderboard';
 
 export default function GameOver({ score, playerName, onRestart }) {
   const [leaderboard, setLeaderboard] = useState([]);
   const [highlightId, setHighlightId] = useState(null);
+  const savedRef = useRef(false);
 
   useEffect(() => {
+    if (savedRef.current) return;
+    
     const saved = localStorage.getItem(STORAGE_KEY);
     let currentLeaderboard = saved ? JSON.parse(saved) : [];
     
@@ -25,6 +28,7 @@ export default function GameOver({ score, playerName, onRestart }) {
     setHighlightId(newEntryId);
     
     localStorage.setItem(STORAGE_KEY, JSON.stringify(currentLeaderboard));
+    savedRef.current = true;
   }, [score, playerName]);
 
   return (
