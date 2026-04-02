@@ -1,16 +1,37 @@
-# React + Vite
+# 🐛 Bug Smasher
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bug Smasher is an interactive, fast-paced web mini-game where the goal is to squash as many bugs as possible before the 30-second timer runs out. Be careful not to smash any Google Apps, or you'll lose points!
 
-Currently, two official plugins are available:
+## 🎮 How to Play
+1. **Enter your name:** Start by giving yourself a cool player name on the home screen.
+2. **Smash Bugs:** Tap or click on the bugs (+100 points) to squash them!
+3. **Avoid Google Apps:** Watch out for the Google Apps (Search, Gmail, Calendar, Drive). Hitting them will deduct 50 points and cause a small shake penalty.
+4. **Time Limit:** You have exactly 30 seconds. The last 10 seconds become a frenzy with faster spawns!
+5. **Leaderboard:** Compete for the top spot. High scores are saved automatically.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- **Frontend Framework:** React 18
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS (Vanilla CSS utilities)
+- **Icons:** React Icons
 
-## React Compiler
+## 🚀 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-## Expanding the ESLint configuration
+### Installation
+1. Clone the repository or download the source code.
+2. Open your terminal and navigate to the project directory.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open your browser and visit `http://localhost:5173` (or the URL provided in the terminal).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📄 License
+This project is open-source and free to use.
