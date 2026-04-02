@@ -15,6 +15,14 @@ export default function Home({ onStart }) {
       <p className="text-xl text-gray-600 max-w-md text-center">
         Smash the bugs, avoid the apps! You have 30 seconds.
       </p>
+
+      <div className="flex flex-col items-center gap-3">
+        <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Target to smash:</span>
+        <div className="p-4 rounded-2xl shadow-md bg-red-500">
+          <FaBug className="text-white w-12 h-12 md:w-16 md:h-16" />
+        </div>
+      </div>
+
       <button 
         onClick={onStart}
         className="px-10 py-4 bg-google-blue hover:bg-blue-600 active:scale-95 transition-all text-white rounded-full text-2xl font-bold shadow-lg flex items-center gap-2"
