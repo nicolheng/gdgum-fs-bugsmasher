@@ -15,14 +15,23 @@ export default function Game({ score, setScore, onGameOver }) {
 
   // Timer countdown
   useEffect(() => {
-    if (timeLeft <= 0) {
-      onGameOver();
-      return;
-    }
     const timer = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Check Game Over
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      onGameOver();
+    }
   }, [timeLeft, onGameOver]);
 
   // Handle Target disappearing automatically
@@ -40,15 +49,15 @@ export default function Game({ score, setScore, onGameOver }) {
 
     // Faster spawning in last 10 seconds
     const isFrenzy = timeLeft <= 10;
-    const minSpawnDelay = isFrenzy ? 200 : 350; // 25%+ faster before frenzy
-    const maxSpawnDelay = isFrenzy ? 800 : 1100;
-    
+    const minSpawnDelay = isFrenzy ? 100 : 200; // Drastically faster overall
+    const maxSpawnDelay = isFrenzy ? 400 : 600;
+
     const spawnDelay = Math.floor(Math.random() * (maxSpawnDelay - minSpawnDelay)) + minSpawnDelay;
-    
+
     const spawnTimer = setTimeout(() => {
       const isBug = Math.random() < PROB_BUG;
       let targetType = 'bug';
-      
+
       if (!isBug) {
         targetType = TARGET_TYPES[1 + Math.floor(Math.random() * (TARGET_TYPES.length - 1))];
       }
@@ -59,15 +68,15 @@ export default function Game({ score, setScore, onGameOver }) {
         x: 10 + Math.random() * 80, // Safe padding (10% to 90%)
         y: 20 + Math.random() * 70, // Safe padding below header
       };
-      
+
       setTargets(prev => [...prev, newTarget]);
-      
+
       // Target disappears after 1-2 seconds
       const lifespan = 1000 + Math.random() * 1000;
       timeoutRefs.current[newTarget.id] = setTimeout(() => {
         removeTarget(newTarget.id);
       }, lifespan);
-      
+
     }, spawnDelay);
 
     return () => clearTimeout(spawnTimer);
@@ -82,12 +91,12 @@ export default function Game({ score, setScore, onGameOver }) {
 
   const handleHit = useCallback((target) => {
     removeTarget(target.id);
-    
+
     const isBug = target.type === 'bug';
     const points = isBug ? 100 : -50;
-    
+
     setScore(prev => prev + points);
-    
+
     setFloatingScores(prev => [...prev, {
       id: Date.now() + Math.random(),
       x: target.x,
@@ -125,17 +134,17 @@ export default function Game({ score, setScore, onGameOver }) {
       {/* Play Area */}
       <div className="flex-1 relative w-full h-full">
         {targets.map(target => (
-          <TargetIcon 
-            key={target.id} 
-            target={target} 
-            onHit={handleHit} 
+          <TargetIcon
+            key={target.id}
+            target={target}
+            onHit={handleHit}
           />
         ))}
         {floatingScores.map(scoreAnim => (
-          <FloatingScore 
-            key={scoreAnim.id} 
-            {...scoreAnim} 
-            onComplete={removeFloatingScore} 
+          <FloatingScore
+            key={scoreAnim.id}
+            {...scoreAnim}
+            onComplete={removeFloatingScore}
           />
         ))}
       </div>
