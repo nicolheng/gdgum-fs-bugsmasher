@@ -49,8 +49,8 @@ export default function Game({ score, setScore, onGameOver }) {
 
     // Faster spawning in last 10 seconds
     const isFrenzy = timeLeft <= 10;
-    const minSpawnDelay = isFrenzy ? 100 : 200; // Drastically faster overall
-    const maxSpawnDelay = isFrenzy ? 400 : 600;
+    const minSpawnDelay = isFrenzy ? 50 : 100; // Drastically faster overall
+    const maxSpawnDelay = isFrenzy ? 200 : 300;
     const spawnDelay = Math.floor(Math.random() * (maxSpawnDelay - minSpawnDelay)) + minSpawnDelay;
 
     const spawnTimer = setTimeout(() => {
