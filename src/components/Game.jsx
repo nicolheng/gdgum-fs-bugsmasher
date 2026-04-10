@@ -4,7 +4,7 @@ import FloatingScore from './FloatingScore';
 
 const GAME_DURATION = 30; // 30 seconds
 const TARGET_TYPES = ['bug', 'search', 'gmail', 'calendar', 'drive'];
-const PROB_BUG = 0.3; // 30% chance of being a bug, 70% chance of Google Icon
+const PROB_BUG = 0.4; // 30% chance of being a bug, 70% chance of Google Icon
 
 export default function Game({ score, setScore, onGameOver }) {
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
@@ -50,7 +50,7 @@ export default function Game({ score, setScore, onGameOver }) {
     // Faster spawning in last 10 seconds
     const isFrenzy = timeLeft <= 10;
     const minSpawnDelay = isFrenzy ? 100 : 200; // Drastically faster overall
-    const maxSpawnDelay = isFrenzy ? 400 : 600;
+    const maxSpawnDelay = isFrenzy ? 300 : 500;
     const spawnDelay = Math.floor(Math.random() * (maxSpawnDelay - minSpawnDelay)) + minSpawnDelay;
 
     const spawnTimer = setTimeout(() => {
